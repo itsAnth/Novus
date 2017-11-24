@@ -1,0 +1,211 @@
+Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+  </div>
+</div>
+
+
+<div class="container">
+  
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Open Orders</h3>
+      </div>
+      <div class="panel-body">
+        <% include ../template/flash.ejs %>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Unit Type</th>
+                <th>Total (CAD$)</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(trxHistory.open.length === 0 && trxHistory.pending.length === 0) { %>
+              <tr>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>               
+              </tr>
+              <% } else { %>
+              <!-- Open orders -->
+              <% for(var i=0;i<trxHistory.open.length; i++) { %>
+              <tr>
+                <% if(trxHistory.open[i].trxType === 'buy') { %>
+                <td><small class="label label-success">Buy</small></td>
+                <% } else { %>
+                <td><small class="label label-warning">Sell</small></td>
+                <% } %>
+                <td><%= trxHistory.open[i].unitQuantity %></td>
+                <td><%= trxHistory.open[i].unitType %></td>
+                <td><%= trxHistory.open[i].totalValue %></td>
+                <td><%= moment(trxHistory.open[i].trxDate).format("MMM Do YY") %></td>
+                <td><small class="label label-info">Open</small></td>
+                <td>
+                  <button class="open-delete btn btn-xs btn-danger" id="<%= trxHistory.open[i]._id %>">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                  </button>
+                </td>
+              </tr>
+              <% } %>
+              <!-- Pending orders -->
+              <% for(var j=0;j<trxHistory.pending.length; j++) { %>
+              <tr>
+                <% if(trxHistory.pending[j].trxType === 'buy') { %>
+                <td><small class="label label-success">Buy</small></td>
+                <% } else { %>
+                <td><small class="label label-warning">Sell</small></td>
+                <% } %>
+                <td><%= trxHistory.pending[j].unitQuantity %></td>
+                <td><%= trxHistory.pending[j].unitType %></td>
+                <td><%= trxHistory.pending[j].totalValue %></td>
+                <td><%= moment(trxHistory.pending[j].trxDate).format("MMM Do YY") %></td>
+                <td><small class="label label-info">Pending</small></td>
+                <td>
+                  --
+                </td>
+              </tr>
+              <% } %>
+
+
+              <% } %>    
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!--  open and pending/.row -->
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Completed Orders</h3>
+      </div>
+      <div class="panel-body">
+        <% include ../template/flash.ejs %>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Unit Type</th>
+                <th>Total (CAD$)</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(trxHistory.completed.length === 0) { %>
+              <tr>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>              
+              </tr>
+              <% } else { %>
+              <% for(i=0;i<trxHistory.completed.length; i++) { %>
+              <tr>
+                <% if(trxHistory.completed[i].trxType === 'buy') { %>
+                <td><small class="label label-success">Buy</small></td>
+                <% } else { %>
+                <td><small class="label label-warning">Sell</small></td>
+                <% } %>
+                <td><%= trxHistory.completed[i].unitQuantity %></td>
+                <td><%= trxHistory.completed[i].unitType %></td>
+                <td><%= trxHistory.completed[i].totalValue %></td>
+                <td><%= moment(trxHistory.completed[i].trxDate).format("MMM Do YY") %></td>
+                <td><small class="label label-primary">Completed</small></td>
+              </tr>
+              <% } %>     
+              <% } %>    
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- completed /.row -->
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Canceled Orders</h3>
+      </div>
+      <div class="panel-body">
+        <% include ../template/flash.ejs %>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Unit Type</th>
+                <th>Total (CAD$)</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(trxHistory.canceled.length === 0) { %>
+              <tr>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>              
+              </tr>
+              <% } else { %>
+              <% for(var k=0;k<trxHistory.canceled.length; k++) { %>
+              <tr>
+                <% if(trxHistory.canceled[k].trxType === 'buy') { %>
+                <td><small class="label label-success">Buy</small></td>
+                <% } else { %>
+                <td><small class="label label-warning">Sell</small></td>
+                <% } %>
+                <td><%= trxHistory.canceled[k].unitQuantity %></td>
+                <td><%= trxHistory.canceled[k].unitType %></td>
+                <td><%= trxHistory.canceled[k].totalValue %></td>
+                <td><%= moment(trxHistory.canceled[k].trxDate).format("MMM Do YY") %></td>
+                <td><small class="label label-primary">Canceled</small></td>
+              </tr>
+              <% } %>     
+              <% } %>    
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- canceled/.row -->
+</div><!-- /.container -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirm Order Cancel</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to cancel your order?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelOpenDelete" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" id="confirmOpenDelete" class="btn btn-primary">Confirm</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal

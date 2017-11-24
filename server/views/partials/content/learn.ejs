@@ -1,0 +1,73 @@
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1 id="jumbotronText">Learn</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Pending Orders</h3>
+      </div>
+      <div class="panel-body">
+
+        <% include ../template/flash.ejs %>
+        <div class="list-group">
+         <div class="list-group-item">
+
+
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Total (CAD$)</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><% if(pageId !== undefined) { %>
+                    --
+                  <% } else { %>
+                  it is
+                  <% } %>
+                </td>
+                <td>Buy</td>
+                <td>1</td>
+                <td>100</td>
+                <td>1/2/2017</td>
+                <td><small class="feedback-name label label-info">Pending</small></td>
+                <td><button class="feedback-delete btn btn-xs btn-danger">
+                  <span class="glyphicon glyphicon-remove">
+                  </span> Cancel
+                </button></td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /.row -->
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Previous Orders</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1 col-12 col-offset-0" id="formDiv">
+        <% include ../template/flash.ejs %>
+      </div>
+    </div>
+  </div>
+</div><!-- /.row -->
+</div><!-- /.container -->

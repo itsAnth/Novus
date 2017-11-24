@@ -1,0 +1,10 @@
+<% if (success_msg !== undefined && success_msg != '') { %>
+<div class="alert alert-success"><%= success_msg%></div>
+<% } %>
+
+<% if (error_msg !== undefined && error_msg != '') { %>
+<div class="alert alert-danger"><%= error_msg%></div>
+<% } %>
+<% if (error !== undefined && error != '') { %>
+<div class="alert alert-danger"><%= error%></div>
+<% } %>

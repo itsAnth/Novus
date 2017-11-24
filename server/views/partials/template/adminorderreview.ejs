@@ -1,0 +1,279 @@
+Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1 id="jumbotronText">Customer Orders</h1>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- open -->
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Open Buy or Sell Orders</h3>
+      </div>
+      <div class="panel-body">
+
+        <% include ../template/flash.ejs %>
+
+        <div class="table-responsive">
+
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Unit Type</th>
+                <th>Total (CAD$)</th>
+                <th>Date Submitted</th>
+                <th>Accept</th>
+                <th>Cancel</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(trxAll.open.length === 0) { %>
+              <tr>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>       
+                <td>--</td>
+              </tr>
+
+              <% } else { %>
+              <% for(i=0;i<trxAll.open.length; i++) { %>
+              <tr>
+
+                <% if(trxAll.open[i].trxType === 'buy') { %>
+                <td class="trxType"><small class="label label-success"><%= trxAll.open[i].trxType %></small></td>
+                <% } else { %>
+                <td class="trxType"><small class="label label-warning"><%= trxAll.open[i].trxType %></small></td>
+                <% } %>
+                <td><%= trxAll.open[i].unitQuantity %></td>
+                <td><%= trxAll.open[i].unitType %></td>
+                <td><%= trxAll.open[i].totalValue %></td>
+                <td><%= moment(trxAll.open[i].trxDate).format("MMM Do YY") %></td>
+                <td>
+                  <button class="open-buySell-accept btn btn-xs btn-success" id="<%= trxAll.open[i]._id %>">
+                    <span class="glyphicon glyphicon-ok"></span> Accept
+                  </button>
+                </td>
+                <td>
+                  <button class="open-buySell-cancel btn btn-xs btn-danger" id="<%= trxAll.open[i]._id %>">
+                    <span class="glyphicon glyphicon-remove"></span> Cancel
+                  </button>
+                </td>
+              </tr>
+              <% } %>
+
+              <% } %>
+              
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div> 
+  </div><!-- /.row -->
+
+  <!-- pending -->
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Pending Buy or Sell Orders</h3>
+      </div>
+      <div class="panel-body">
+        <% include ../template/flash.ejs %>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Unit Type</th>
+                <th>Total (CAD$)</th>
+                <th>Date Submitted</th>
+                <th>Date Approved</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(trxAll.pending.length === 0) { %>
+              <tr>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>       
+                <td>--</td>
+                <td>--</td>
+              </tr>
+              <% } else { %>
+              <% for(i=0;i<trxAll.pending.length; i++) { %>
+              <tr>
+
+                <% if(trxAll.pending[i].trxType === 'buy') { %>
+                <td class="trxType"><small class="label label-success"><%= trxAll.pending[i].trxType %></small></td>
+                <% } else { %>
+                <td class="trxType"><small class="label label-warning"><%= trxAll.pending[i].trxType %></small></td>
+                <% } %>
+                <td><%= trxAll.pending[i].unitQuantity %></td>
+                <td><%= trxAll.pending[i].unitType %></td>
+                <td><%= trxAll.pending[i].totalValue %></td>
+                <td><%= moment(trxAll.pending[i].trxDate).format("MMM Do YY") %></td>
+                <td><%= moment(trxAll.pending[i].editHistory[trxAll.pending[i].editHistory.length -1].editDate).format("MMM Do YY") %></td>
+                <td><%= trxAll.pending[i].editHistory[trxAll.pending[i].editHistory.length -1].editDescription %></td>
+                <td>
+                  <button class="pending-buySell-complete btn btn-xs btn-success" id="<%= trxAll.pending[i]._id %>">
+                    <span class="glyphicon glyphicon-ok"></span> Complete
+                  </button>
+                </td>
+              </tr>
+              <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div> 
+  </div><!-- /.row -->
+
+  <!-- canceled -->
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Canceled Buy or Sell Orders (Not Refunded)</h3>
+      </div>
+      <div class="panel-body">
+        <% include ../template/flash.ejs %>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Unit Type</th>
+                <th>Total (CAD$)</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+                <th>Refund</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(trxAll.canceled.length === 0) { %>
+              <tr>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>       
+                <td>--</td>
+              </tr>
+              <% } else { %>
+              <% for(i=0;i<trxAll.canceled.length; i++) { %>
+              <tr>
+                <% if(trxAll.canceled[i].trxType === 'buy') { %>
+                <td class="trxType"><small class="label label-success"><%= trxAll.canceled[i].trxType %></small></td>
+                <% } else { %>
+                <td class="trxType"><small class="label label-warning"><%= trxAll.canceled[i].trxType %></small></td>
+                <% } %>
+                <td><%= trxAll.canceled[i].unitQuantity %></td>
+                <td><%= trxAll.canceled[i].unitType %></td>
+                <td><%= trxAll.canceled[i].totalValue %></td>
+                <td><%= moment(trxAll.canceled[i].trxDate).format("MMM Do YY") %></td>
+                <td><small class="label label-info"><%= trxAll.canceled[i].status %></small></td>
+                <td>
+                  <button class="refund btn btn-xs btn-danger" id="<%= trxAll.canceled[i]._id %>">
+                    <span class="glyphicon glyphicon-remove"></span> Refund
+                  </button>
+                </td>
+              </tr>
+              <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.row -->
+
+  <!-- completed -->
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Completed Buy or Sell Orders</h3>
+      </div>
+      <div class="panel-body">
+        <% include ../template/flash.ejs %>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Order Type</th>
+                <th>Quantity</th>
+                <th>Unit Type</th>
+                <th>Total (CAD$)</th>
+                <th>Date Submitted</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if(trxAll.completed.length === 0) { %>
+              <tr>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>       
+              </tr>
+              <% } else { %>
+              <% for(i=0;i<trxAll.completed.length; i++) { %>
+              <tr>
+                <% if(trxAll.completed[i].trxType === 'buy') { %>
+                <td class="trxType"><small class="label label-success"><%= trxAll.completed[i].trxType %></small></td>
+                <% } else { %>
+                <td class="trxType"><small class="label label-warning"><%= trxAll.completed[i].trxType %></small></td>
+                <% } %>
+                <td><%= trxAll.completed[i].unitQuantity %></td>
+                <td><%= trxAll.completed[i].unitType %></td>
+                <td><%= trxAll.completed[i].totalValue %></td>
+                <td><%= moment(trxAll.completed[i].trxDate).format("MMM Do YY") %></td>
+                <td><small class="label label-primary"><%= trxAll.completed[i].status %></small></td>
+              </tr>
+              <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /.row -->
+
+  <!-- modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 id="myModalTitle" class="modal-title">Modal title</h4>
+        </div>
+        <div id="myModalBody" class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancelModal" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" id="confirmModal" class="btn btn-primary">Confirm</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  
+</div>

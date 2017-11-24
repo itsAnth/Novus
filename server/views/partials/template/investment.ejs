@@ -1,0 +1,75 @@
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+	<div class="container">
+		<h1 id="jumbotronText"></h1>
+	</div>
+</div>
+<div class="container">
+
+
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Your Investments</h3>
+			</div>
+			<div class="panel-body">
+				<% include ../template/flash.ejs %>
+				<div class="table-responsive">
+					<table class="table table-striped" >
+						<thead>
+							<tr>
+								<th>Fund Type</th>
+								<th>Units</th>
+								<th>Unit Value (CAD$)</th>
+								<th>Total Value (CAD$)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Balanced</td>
+								<td><%= unitCount %></td>
+								<td><%= unitPrice.total %></td>
+								<td><%= unitTotal %></td>
+								
+							</tr> 
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">Unit Composition -- Balanced Fund</h3>
+			</div>
+			<div class="panel-body">
+				<% include ../template/flash.ejs %>
+				<div class="table-responsive">
+					<table class="table table-striped" >
+						<thead>
+							<tr>
+								<th>Currency</th>
+								<th>Value (CAD$)</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for(i=0;i<unitPrice.currencies.length; i++) { %>
+							<tr>
+								<td><%= unitPrice.currencies[i].currencyName %></td>
+								<td><%= unitPrice.currencies[i].currencyValue %></td>
+							</tr> 
+							<% } %> 
+							<tr class="total">
+								<td>Total</td>
+								<td><%= unitPrice.total %></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div><!-- /.row -->
+
+
+
+	</div><!-- /.container -->

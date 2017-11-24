@@ -1,0 +1,170 @@
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Create New Order</h3>
+      </div>
+      <div class="panel-body">
+        <% include ../template/flash.ejs %>
+
+
+        <ul class="nav nav-tabs">
+          <li class="active"><a data-toggle="tab" href="#buy">Buy</a></li>
+          <li><a data-toggle="tab" href="#sell">Sell</a></li>
+        </ul>
+        <div class="tab-content">
+          <div id="buy" class="tab-pane fade in active">
+
+            <div class="row justify-content-center">
+              <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-10 col-offset-1" id="buySellDiv">
+                <% include ../template/flash.ejs %>
+                <form id="buyForm">
+                  <fieldset disabled>
+                    <div class="form-group">
+                      <label for="buyOrderTypeInput">Order Type</label>
+                      <input name="trxType" type="text" class="form-control" id="buyOrderTypeInput" value="Buy" required readonly>
+                    </div>
+                  </fieldset>
+                  <div class="form-group">
+                    <label for="buyOrderUnitType">Unit Type</label>
+                    <div class="input-group">
+                      <select name="unitType" id="buyOrderUnitType" class="form-control" required>
+                        <option value="balanced">Balanced</option>
+                      </select>
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" aria-label="Help">
+                          <span class="glyphicon glyphicon-question-sign"></span></button>
+                        </div>
+                      </div>
+                    </div>
+                     <fieldset disabled>
+                    <div class="form-group">
+                      <label for="buyUnitPrice">Unit Price</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">CAD $</div>
+                        <input name="unitValue" type="text" class="form-control" id="buyUnitPrice" required readonly value="<%= unitPrice %>">
+                        <div class="input-group-addon">.00 per unit</div>
+                      </div>
+                    </div>
+                    </fieldset>
+                    <div class="form-group">
+                      <label for="buyOrderQuantity">Unit Quantity to Buy</label>
+                      <div class="input-group">
+                        <input name="unitQuantity" type="number" class="form-control" id="buyOrderQuantity" placeholder="Quantity" min="1" max="10" required>
+                        <div class="input-group-addon">units</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="buyOrderTotal">Total Amount</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">CAD $</div>
+                        <input name="totalValue" type="text" class="form-control" id="buyOrderTotal" placeholder="Amount" readonly required>
+                        <div class="input-group-addon">.00</div>
+                      </div>
+                    </div>
+                    <span id="helpBlock" class="help-block"><strong>Conditions:</strong> I understand and agree that the</span>
+
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" required> I agree to the Conditions above.
+                      </label>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit Buy Order</button>
+                  </form>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div id="sell" class="tab-pane fade">
+
+              <div class="row justify-content-center">
+                <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-12 col-offset-0" id="buySellDiv">
+                  <% include ../template/flash.ejs %>
+                  <form id="sellForm">
+                    <fieldset disabled>
+                      <div class="form-group">
+                        <label for="sellOrderTypeInput">Order Type</label>
+                        <input name="trxType" type="text" class="form-control" id="buyOrderTypeInput" value="Sell" required readonly>
+                      </div>
+                    </fieldset>
+                    <div class="form-group">
+                      <label for="sellOrderFund">Fund</label>
+                      <div class="input-group">
+                        <select name="unitType" id="sellOrderFund" class="form-control" required>
+                          <option value="balanced">Balanced</option>
+                        </select>
+                        <div class="input-group-btn">
+                          <button type="button" class="btn btn-default" aria-label="Help">
+                            <span class="glyphicon glyphicon-question-sign"></span></button>
+                          </div>
+                        </div>
+                      </div>
+                      <fieldset disabled>
+                        <div class="form-group">
+                          <label for="sellOrderAvailQuantity">Available Quantity</label>
+                          <div class="input-group">
+                            <input name="availableUnits" type="number" class="form-control" id="sellOrderAvailQuantity" value="<%= unitCount %>" readonly>
+                            <div class="input-group-addon">units</div>
+                          </div>
+                        </div>
+                      </fieldset>
+                      <div class="form-group">
+                        <label for="sellOrderQuantity">Quantity to Sell</label>
+                        <div class="input-group">
+                          <input name="unitQuantity" type="number" class="form-control" id="sellOrderQuantity" placeholder="Quantity" min="0" max="<%= unitCount %>">
+                          <div class="input-group-addon">units</div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                      <label for="sellUnitPrice">Current Unit Value</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">CAD $</div>
+                        <input name="unitValue" type="text" class="form-control" id="sellUnitPrice" required readonly value="<%= unitPrice %>">
+                        <div class="input-group-addon">.00 per unit</div>
+                      </div>
+                    </div>
+                      <div class="form-group">
+                      <label for="sellOrderTotal">Estimated Total Amount</label>
+                      <div class="input-group">
+                        <div class="input-group-addon">CAD $</div>
+                        <input name="totalValue" type="text" class="form-control" id="sellOrderTotal" placeholder="Amount" readonly required>
+                        <div class="input-group-addon">.00</div>
+                      </div>
+                    </div>
+                      <!-- <div class="form-group">
+                        <label for="sellOrderMethod">Withdraw Method</label>
+                        <select name="withdrawMethod" id="sellOrderMethod" class="form-control">
+                          <option value="balanced">Credit Card</option>
+                          <option value="balanced">PayPal</option>
+                          <option value="balanced">Bitcoin Address</option>
+                        </select>
+                      </div> -->
+                      <span id="helpBlock" class="help-block"><strong>Conditions:</strong> I understand and agree that the</span>
+
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" required> I agree to the Conditions above.
+                        </label>
+                      </div>
+                      <button type="submit" class="btn btn-warning">Submit Sell Order</button>
+                    </form>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div><!-- /.row -->
+</div><!-- /.container -->

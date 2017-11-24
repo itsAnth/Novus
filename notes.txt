@@ -1,0 +1,68 @@
+Buy Process:
+1. User submits buy order.
+	i. unit owner is set to user_id
+	ii. unit ownershipStatus is set to 'reserved'
+	iii. transaction contains the unit_id in the units array
+	iv. transaction status is set to 'open'
+
+2a. User cancels open buy order.
+	i. unit owner is set to null
+	ii. unit status is set to 'none'
+	iii. transaction keeps the unit_id in the units array
+	iv. transaction status is set to 'canceled'
+	v. history text is set to 'canceled by user_id'
+
+2b. Admin cancels the order.
+	i. unit owner is set to null
+	ii. unit status is set to 'none'
+	iii. transaction keeps the unit_id in the units array
+	iv. transaction status is set to 'canceled'
+	v. history text is set to 'canceled by admin'
+
+2c. Admin processes the order.
+	i. unit owner is kept the same
+	ii. unit status is kept 'reserved'
+	iii. transaction keeps the unit_id in the units array
+	iv. transaction status is set to 'pending'
+	v. history text is set to 'processed on date'
+	vi. disable cancel
+
+3a. Admin completes order.
+	i. unit owner is kept the same
+	ii. unit status is set to 'owned'
+	iii. transaction keeps the unit_id in the units array
+	iv. transaction status is set to 'complete'
+	v. history text is set to 'filled on date'
+
+3b. Admin refunds order.
+	i. refund table is updated.
+	ii. trx history is updated
+
+
+
+start making this
+
+Sell Process: 
+1. User submits sell order.
+	i. unit owner is kept to user_id
+	ii. unit ownershipStatus is kept
+	iii. transaction contains the unit_id in the units array
+	iv. transaction status is set to 'open'
+
+2a. User cancels open sell order.
+	i. transaction status is set to 'canceled'
+
+2b. Admin cancels open sell order.
+	i. transaction status is set to 'canceled'
+
+2c. Admin processes the order.
+	i. transaction status is set to 'pending'
+	ii. unit ownership is kept
+
+3. Admin completes order.
+	i. transaction status is set to 'complete'
+	ii. unit ownership is 'none'
+	iii. refund order is made and status to 'no'
+
+4. Admin refunds sell order.
+	i. refund status is 'yes'

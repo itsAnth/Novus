@@ -1,0 +1,35 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href=<%= pathHome %>>Novus</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <% if (!isPublic) { %>
+      <ul class="nav navbar-nav">
+        <li <% if (pageId === 'investment') { %> class="active" <% } %>><a href=<%= pathInvestment %>>Investments</a></li>
+        <li <% if (pageId === 'buysell') { %> class="active" <% } %> ><a href=<%= pathBuysell %>>Buy/Sell</a></li>
+        <li <% if (pageId === 'orders') { %> class="active" <% } %> ><a href=<%= pathOrders %>>Orders</a></li>
+      </ul>
+      <% } %>
+      <ul class="nav navbar-nav navbar-right">
+        <% if (isPublic) { %>
+        <li <% if (pageId === 'home') { %> class="active" <% } %> ><a href=<%= pathHome %> >Home<% if (pageId === 'home') { %><span class="sr-only">(current)</span><% } %></a></li>
+        <li <% if (pageId === 'learn') { %> class="active" <% } %> ><a href=<%= pathLearn %>>Learn<% if (pageId === 'learn') { %> <span class="sr-only">(current)</span> <% } %></a></li>
+        <li <% if (pageId === 'about') { %> class="active" <% } %> ><a href=<%= pathAbout %> >About<% if (pageId === 'about') { %> <span class="sr-only">(current)</span> <% } %></a></li>
+        <li <% if (pageId === 'signin') { %> class="active" <% } %> ><a href=<%= pathSignIn %>>Sign In<% if (pageId === 'signin') { %> <span class="sr-only">(current)</span> <% } %></a></li>
+        <li <% if (pageId === 'signup') { %> class="active" <% } %> ><a href=<%= pathSignUp %>>Sign Up <% if (pageId === 'signup') { %> <span class="sr-only">(current)</span> <% } %></a></li>
+        
+        <% } else { %>
+        <li <% if (pageId === 'profile') { %> class="active" <% } %> ><a href=<%= pathProfile %>>Profile</a></li>
+        <li><a href=<%= pathSignout %> >Sign Out</a></li>
+        <% } %>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
